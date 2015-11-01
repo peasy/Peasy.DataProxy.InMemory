@@ -68,6 +68,8 @@ namespace Peasy.DataProxy.InMemory
             {
                 Debug.WriteLine($"Executing {this.GetType().Name}.Insert");
                 var nextID = GetNextID();
+                if (Data.ContainsKey(nextID))
+                    throw new ArgumentException($"Duplicate ids are not allowed: id {nextID}");
                 entity.ID = nextID;
                 Data[nextID] = Mapper.Map(entity, default(DTO));
                 return entity;

@@ -31,6 +31,77 @@ namespace Peasy.DataProxy.InMemory.Tests
             var dataProxy = new PersonDataProxy();
             dataProxy.GetAll().Count().ShouldBe(3);
         }
+
+        [TestMethod]
+        public void should_return_expected_item_on_GetByID()
+        {
+            var dataProxy = new PersonDataProxy();
+            var person = dataProxy.GetByID(2);
+            person.Name.ShouldBe("James Page");
+        }
+
+        [TestMethod]
+        public void should_insert_item_into_data_store()
+        {
+            var dataProxy = new PersonDataProxy();
+            var person = new Person() { Name = "Brian May" };
+            dataProxy.Insert(person);
+            dataProxy.GetAll().Count().ShouldBe(4);
+        }
+
+        [TestMethod]
+        public void should_insert_item_into_data_store_with_expected_id()
+        {
+            var dataProxy = new PersonDataProxy();
+            var person = new Person() { Name = "Brian May" };
+            var newPerson = dataProxy.Insert(person);
+            newPerson.ID.ShouldBe(4);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void throws_exception_on_insert_if_id_retrieved_from_GetNextID_already_exists()
+        {
+            var dataProxy = new PersonDataProxyWithSeedDataWithoutIDs();
+        }
+
+        [TestMethod]
+        public void should_update_item_in_data_store()
+        {
+            var dataProxy = new PersonDataProxy();
+            dataProxy.GetAll().Count().ShouldBe(3);
+        }
+        
+        [TestMethod]
+        public void should_delete_item_in_data_store()
+        {
+            var dataProxy = new PersonDataProxy();
+            dataProxy.GetAll().Count().ShouldBe(3);
+        }
+
+        [TestMethod]
+        public void multiple_inserts_should_be_thread_safe()
+        {
+
+        }
+        
+        [TestMethod]
+        public void multiple_updates_should_be_thread_safe()
+        {
+
+        }
+
+        [TestMethod]
+        public void multiple_deletes_should_be_thread_safe()
+        {
+
+        }
+
+        [TestMethod]
+        public void version_containers_should_be_updated()
+        {
+
+        }
     }
 
     public class Person : IDomainObject<int>
