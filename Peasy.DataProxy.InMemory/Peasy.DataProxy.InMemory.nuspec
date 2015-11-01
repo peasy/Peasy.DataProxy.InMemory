@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.0.0.0</version>
+    <title>Peasy In-Memory Data Proxy</title>
+    <authors>Aaron Hanusa</authors>
+    <owners>Aaron Hanusa</owners>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/ahanusa/Peasy.DataProxy.InMemory</projectUrl>
+    <iconUrl>https://www.dropbox.com/s/2yajr2x9yevvzbm/peasy3.png?raw=1</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides base class functionality that serves as a thread-safe in-memory data store implementation.  Use this to create fake data proxies for state-based unit testing or to quickly develop peasy service classes.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>Middle Tier, Framework, Business Layer, In-Memory, In Memory, Data Proxy, Repository, Fake</tags>
+    <summary>A thread-safe in-memory data store abstraction for consumption by service classes developed with peasy</summary>
+  </metadata>
+</package>
