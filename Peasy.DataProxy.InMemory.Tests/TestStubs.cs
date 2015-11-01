@@ -41,7 +41,7 @@ namespace Peasy.DataProxy.InMemory.Tests
         }
     }
 
-    public class PersonDataProxyWithBadIDIncrementLogic : InMemoryProxyBase<Person, int>
+    public class PersonDataProxyWithBadIDIncrementLogic : InMemoryDataProxyBase<Person, int>
     {
         protected override IEnumerable<Person> SeedDataProxy()
         {
@@ -75,7 +75,7 @@ namespace Peasy.DataProxy.InMemory.Tests
         }
     }
 
-    public class TestDataProxyBase<T> : InMemoryProxyBase<T, int> where T : IDomainObject<int>
+    public class TestDataProxyBase<T> : InMemoryDataProxyBase<T, int> where T : IDomainObject<int>
     {
         protected override int GetNextID()
         {

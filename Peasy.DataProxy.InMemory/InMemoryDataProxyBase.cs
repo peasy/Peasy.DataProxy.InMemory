@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Peasy.DataProxy.InMemory
 {
-    public abstract class InMemoryProxyBase<DTO, TKey> : IServiceDataProxy<DTO, TKey> where DTO : IDomainObject<TKey>
+    public abstract class InMemoryDataProxyBase<DTO, TKey> : IServiceDataProxy<DTO, TKey> where DTO : IDomainObject<TKey>
     {
         private object _lockObject = new object();
 
-        protected InMemoryProxyBase()
+        protected InMemoryDataProxyBase()
         {
             Mapper.CreateMap<DTO, DTO>();
             LoadData();
