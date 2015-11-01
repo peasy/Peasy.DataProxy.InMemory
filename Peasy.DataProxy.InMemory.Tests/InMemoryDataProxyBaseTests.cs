@@ -33,6 +33,15 @@ namespace Peasy.DataProxy.InMemory.Tests
         }
 
         [TestMethod]
+        public void changing_returned_object_from_GetAll_does_not_change_state_in_the_data_store()
+        {
+            var dataProxy = new PersonDataProxy();
+            var person = dataProxy.GetAll().First(p => p.ID == 1);
+            person.Name = "FOO";
+            dataProxy.GetAll().First(p => p.ID == 1).Name.ShouldNotBe("FOO");
+        }
+
+        [TestMethod]
         public void should_return_expected_item_on_GetByID()
         {
             var dataProxy = new PersonDataProxy();
@@ -41,11 +50,20 @@ namespace Peasy.DataProxy.InMemory.Tests
         }
 
         [TestMethod]
+        public void changing_returned_object_from_GetByID_does_not_change_state_in_the_data_store()
+        {
+            var dataProxy = new PersonDataProxy();
+            var person = dataProxy.GetByID(1);
+            person.Name = "FOO";
+            dataProxy.GetByID(person.ID).Name.ShouldNotBe("FOO");
+        }
+
+        [TestMethod]
         public void should_insert_item_into_data_store()
         {
             var dataProxy = new PersonDataProxy();
             var person = new Person() { Name = "Brian May" };
-            dataProxy.Insert(person);
+            var x = dataProxy.Insert(person);
             dataProxy.GetAll().Count().ShouldBe(4);
         }
 
@@ -53,25 +71,54 @@ namespace Peasy.DataProxy.InMemory.Tests
         public void should_insert_item_into_data_store_with_expected_id()
         {
             var dataProxy = new PersonDataProxy();
-            var person = new Person() { Name = "Brian May" };
+            var person = new Person() { Name = "Frank Zappa" };
             var newPerson = dataProxy.Insert(person);
             newPerson.ID.ShouldBe(4);
+        }
+
+        [TestMethod]
+        public void changing_returned_object_from_insert_does_not_change_state_in_the_data_store()
+        {
+            var dataProxy = new PersonDataProxy();
+            var person = new Person() { Name = "Frank Zappa" };
+            var newPerson = dataProxy.Insert(person);
+            newPerson.Name = "FOO";
+            dataProxy.GetByID(newPerson.ID).Name.ShouldNotBe("FOO");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void throws_exception_on_insert_if_id_retrieved_from_GetNextID_already_exists()
         {
-            var dataProxy = new PersonDataProxyWithSeedDataWithoutIDs();
+            var dataProxy = new PersonDataProxyWithBadIDIncrementLogic();
+            dataProxy.Insert(new Person { Name = "Steve How" });
         }
 
         [TestMethod]
         public void should_update_item_in_data_store()
         {
             var dataProxy = new PersonDataProxy();
-            dataProxy.GetAll().Count().ShouldBe(3);
+            var newName = "Robby Krieger";
+            var person = dataProxy.GetByID(1);
+            person.Name = newName;
+            dataProxy.Update(person);
+            var personInDataStore = dataProxy.GetByID(1);
+            personInDataStore.Name.ShouldBe(newName);
         }
         
+        [TestMethod]
+        public void changing_returned_object_from_Update_does_not_change_state_in_the_data_store()
+        {
+            var dataProxy = new PersonDataProxy();
+            var newName = "Robby Krieger";
+            var person = dataProxy.GetByID(1);
+            person.Name = newName;
+            var updatedPerson = dataProxy.Update(person);
+            updatedPerson.Name = "FOO";
+            var personInDataStore = dataProxy.GetByID(1);
+            personInDataStore.Name.ShouldNotBe("FOO");
+        }
+
         [TestMethod]
         public void should_delete_item_in_data_store()
         {
@@ -103,66 +150,4 @@ namespace Peasy.DataProxy.InMemory.Tests
 
         }
     }
-
-    public class Person : IDomainObject<int>
-    {
-        public int ID { get; set; }
-        public string Name { get; set; }
-    }
-
-    public class PersonDataProxyWithSeedDataContainingDuplicateIDs : TestDataProxyBase<Person> 
-    {
-        protected override IEnumerable<Person> SeedDataProxy()
-        {
-            yield return new Person { ID = 1, Name = "Django Reinhardt" };
-            yield return new Person { ID = 1, Name = "James Page" };
-        }
-    }
-
-    public class PersonDataProxyWithSeedDataWithoutIDs : TestDataProxyBase<Person> 
-    {
-        protected override IEnumerable<Person> SeedDataProxy()
-        {
-            yield return new Person { Name = "Django Reinhardt" };
-            yield return new Person { Name = "James Page" };
-        }
-    }
-
-    public class PersonDataProxy : TestDataProxyBase<Person>
-    {
-        protected override IEnumerable<Person> SeedDataProxy()
-        {
-            yield return new Person { ID = 1, Name = "Django Reinhardt" };
-            yield return new Person { ID = 2, Name = "James Page" };
-            yield return new Person { ID = 3, Name = "Eric Johnson" };
-        }
-    }
-
-    public class Address : IDomainObject<int>, IVersionContainer
-    {
-        public int ID { get; set; }
-        public string Street { get; set; }
-        public string Version { get; set; }
-    }
-
-    public class AddressDataProxy : TestDataProxyBase<Address>
-    {
-        public override IVersionContainer IncrementVersion(IVersionContainer versionContainer)
-        {
-            versionContainer.Version = (Convert.ToInt32(versionContainer.Version) + 1).ToString();
-            return versionContainer;
-        }
-    }
-
-    public class TestDataProxyBase<T> : InMemoryProxyBase<T, int> where T : IDomainObject<int>
-    {
-        protected override int GetNextID()
-        {
-            if (Data.Values.Any())
-                return Data.Values.Max(c => c.ID) + 1;
-
-            return 1;
-        }
-    }
-
 }
