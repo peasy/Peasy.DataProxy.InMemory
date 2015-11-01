@@ -188,7 +188,21 @@ namespace Peasy.DataProxy.InMemory.Tests
         [TestMethod]
         public void version_containers_should_be_updated()
         {
+            var dataProxy = new AddressDataProxy();
+            var address = dataProxy.GetByID(1);
+            address.Street = "234 Washington St";
+            address = dataProxy.Update(address); 
+            address.Version.ShouldBe("2");
+        }
 
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void update_throws_an_exception_when_version_container_version_differs_from_data_store_version()
+        {
+            var dataProxy = new AddressDataProxy();
+            var address = dataProxy.GetByID(1);
+            address.Version = "5";
+            address = dataProxy.Update(address); 
         }
     }
 }

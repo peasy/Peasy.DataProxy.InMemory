@@ -63,6 +63,11 @@ namespace Peasy.DataProxy.InMemory.Tests
 
     public class AddressDataProxy : TestDataProxyBase<Address>
     {
+        protected override IEnumerable<Address> SeedDataProxy()
+        {
+            yield return new Address { ID = 1, Street = "123 Main St.", Version = "1" };
+        }
+        
         public override IVersionContainer IncrementVersion(IVersionContainer versionContainer)
         {
             versionContainer.Version = (Convert.ToInt32(versionContainer.Version) + 1).ToString();
