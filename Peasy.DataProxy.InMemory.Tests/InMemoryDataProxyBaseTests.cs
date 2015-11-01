@@ -3,8 +3,10 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Peasy.Core;
+using Peasy.Extensions;
 using Shouldly;
 using Moq;
+using System.Threading.Tasks;
 
 namespace Peasy.DataProxy.InMemory.Tests
 {
@@ -123,25 +125,64 @@ namespace Peasy.DataProxy.InMemory.Tests
         public void should_delete_item_in_data_store()
         {
             var dataProxy = new PersonDataProxy();
-            dataProxy.GetAll().Count().ShouldBe(3);
+            dataProxy.Delete(1);
+            dataProxy.GetAll().Count().ShouldBe(2);
         }
 
         [TestMethod]
         public void multiple_inserts_should_be_thread_safe()
         {
-
+            var count = 50;
+            var dataProxy = new PersonDataProxy();
+            dataProxy.Clear();
+            Parallel.ForEach(Enumerable.Range(0, count), (index) =>
+            {
+                dataProxy.Insert(new Person() { Name = $"Jim Morrison{index}" });
+            });
+            dataProxy.GetAll().Count().ShouldBe(count);
+            foreach (var i in Enumerable.Range(0, count))
+            {
+                dataProxy.GetByID(i + 1).ShouldNotBe(null);
+            }
         }
         
         [TestMethod]
         public void multiple_updates_should_be_thread_safe()
         {
-
+            var count = 50;
+            var dataProxy = new PersonDataProxy();
+            dataProxy.Clear();
+            Parallel.ForEach(Enumerable.Range(0, count), (index) =>
+            {
+                dataProxy.Insert(new Person() { Name = $"Jim Morrison{index}" });
+            });
+            Parallel.ForEach(Enumerable.Range(0, count), (index) =>
+            {
+                var person = dataProxy.GetByID(index + 1);
+                person.Name = $"Peter Frampton{index}";
+                dataProxy.Update(person);
+            });
+            foreach (var i in Enumerable.Range(0, count))
+            {
+                dataProxy.GetByID(i + 1).Name.ShouldBe($"Peter Frampton{i}");
+            }
         }
 
         [TestMethod]
         public void multiple_deletes_should_be_thread_safe()
         {
-
+            var count = 50;
+            var dataProxy = new PersonDataProxy();
+            dataProxy.Clear();
+            Parallel.ForEach(Enumerable.Range(0, count), (index) =>
+            {
+                dataProxy.Insert(new Person() { Name = $"Jim Morrison{index}" });
+            });
+            Parallel.ForEach(Enumerable.Range(0, count), (index) =>
+            {
+                dataProxy.Delete(index + 1);
+            });
+            dataProxy.GetAll().Count().ShouldBe(0);
         }
 
         [TestMethod]
