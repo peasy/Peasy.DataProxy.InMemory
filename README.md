@@ -52,8 +52,8 @@ public class PersonRepository : InMemoryDataProxyBase<Person, int>
 {
     protected override IEnumerable<Person> SeedDataProxy()
     {
-        yield return new Person { ID = 1, Name = "Aaron Hanusa" };
-        yield return new Person { ID = 2, Name = "Ben Hurtz" };
+        yield return new Person { ID = 1, Name = "Jimi Hendrix" };
+        yield return new Person { ID = 2, Name = "Django Reinhardt" };
     }
 
     protected override int GetNextID()
