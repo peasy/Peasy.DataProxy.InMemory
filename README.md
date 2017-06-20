@@ -6,7 +6,7 @@ Peasy.DataProxy.InMemory provides the [InMemoryDataProxyBase](https://github.com
 
 Creating an in-memory implementation of your data layer can help developing state-based unit tests as well as serving as a fake repository for rapid development of your [service classes](https://github.com/ahanusa/Peasy.NET/wiki/ServiceBase).  InMemoryDataProxy was designed to be simple to use and thread-safe.
 
-###Where can I get it?
+### Where can I get it?
 
 First, install NuGet. Then create a project for your in-memory class implementations to live.  Finally, install Peasy.DataProxy.InMemory from the package manager console:
 
