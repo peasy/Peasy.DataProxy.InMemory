@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Peasy.Core;
-using Peasy.Extensions;
 using Shouldly;
 using Moq;
 using System.Threading.Tasks;

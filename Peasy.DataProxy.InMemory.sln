@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peasy.DataProxy.InMemory", "Peasy.DataProxy.InMemory\Peasy.DataProxy.InMemory.csproj", "{E4238C97-DD76-47F7-AD84-E4137ADF2646}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peasy.DataProxy.InMemory", "Peasy.DataProxy.InMemory\Peasy.DataProxy.InMemory.csproj", "{F8092ED0-A53E-415C-803F-DE0C179BDA44}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peasy.DataProxy.InMemory.Tests", "Peasy.DataProxy.InMemory.Tests\Peasy.DataProxy.InMemory.Tests.csproj", "{CF2B9EE1-72E3-4CAE-BDAD-BD13E70807DA}"
 EndProject
@@ -13,10 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E4238C97-DD76-47F7-AD84-E4137ADF2646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4238C97-DD76-47F7-AD84-E4137ADF2646}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4238C97-DD76-47F7-AD84-E4137ADF2646}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4238C97-DD76-47F7-AD84-E4137ADF2646}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8092ED0-A53E-415C-803F-DE0C179BDA44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8092ED0-A53E-415C-803F-DE0C179BDA44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8092ED0-A53E-415C-803F-DE0C179BDA44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8092ED0-A53E-415C-803F-DE0C179BDA44}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CF2B9EE1-72E3-4CAE-BDAD-BD13E70807DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF2B9EE1-72E3-4CAE-BDAD-BD13E70807DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF2B9EE1-72E3-4CAE-BDAD-BD13E70807DA}.Release|Any CPU.ActiveCfg = Release|Any CPU

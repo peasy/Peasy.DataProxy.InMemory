@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>1.0.0.2</version>
+    <id>Peasy.DataProxy.InMemory</id>
+    <version>2.0.0</version>
     <title>Peasy In-Memory Data Proxy</title>
     <authors>Aaron Hanusa</authors>
     <owners>Aaron Hanusa</owners>
@@ -12,8 +12,16 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provides base class functionality that serves as a thread-safe in-memory data store implementation.  Use this to create fake data proxies for state-based unit testing or to quickly develop peasy service classes.</description>
     <releaseNotes>Update to reference latest Peasy.Core changes.  This release does not present breaking changes</releaseNotes>
-    <copyright>Copyright 2015</copyright>
+    <copyright>Copyright 2017</copyright>
     <tags>Middle Tier, Framework, Business Layer, In-Memory, In Memory, Data Proxy, Repository, Fake</tags>
     <summary>A thread-safe in-memory data store abstraction for consumption by service classes developed with peasy</summary>
+    <dependencies>
+      <dependency id="AutoMapper" version="6.1.0" />
+      <dependency id="Peasy" version="2.0.2" />
+    </dependencies>
   </metadata>
+  <files>
+    <file src="bin\Release\Peasy.DataProxy.InMemory.dll" target="lib\netstandard1.1\Peasy.DataProxy.InMemory.dll" />
+    <file src="bin\Release\Peasy.DataProxy.InMemory.xml" target="lib\netstandard1.1\Peasy.DataProxy.InMemory.xml" />
+  </files>
 </package>

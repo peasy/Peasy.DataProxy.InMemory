@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
-using Peasy.Core.Extensions;
-using Peasy.Core;
-using Peasy.Extensions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Peasy;
+using Peasy.Extensions;
 
 namespace Peasy.DataProxy.InMemory
 {
@@ -17,7 +16,7 @@ namespace Peasy.DataProxy.InMemory
 
         protected InMemoryDataProxyBase()
         {
-            Mapper.CreateMap<DTO, DTO>();
+            Mapper.Initialize(config => config.CreateMap<DTO, DTO>());
             LoadData();
         }
 
@@ -139,5 +138,6 @@ namespace Peasy.DataProxy.InMemory
         {
             Data.Clear();
         }
+
     }
 }
